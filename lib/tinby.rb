@@ -1,5 +1,7 @@
 require "tinby/version"
 
 module Tinby
-  # Your code goes here...
+  def self.greet
+		'Hello World!'
+	end
 end
