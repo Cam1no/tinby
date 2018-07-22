@@ -22,6 +22,13 @@ module Tinby
       JSON.parse(connection.get('profile').body)
     end
 
+    def recommended_users
+      sign_in unless login?
+      results = JSON.parse(connection.post('user/recs').body)['results']
+      users = results.reject { |r| r['name'] == 'Tinder Team' } if results
+      users || []
+    end
+
     private
 
     def sign_in
