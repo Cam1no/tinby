@@ -1,5 +1,5 @@
 module Tinby
-  module Facebook
+  class Facebook
     FIND_FACEBOOK_ID_URL = 'https://findmyfbid.com'.freeze
 
     def get_facebook_token(email, password)
