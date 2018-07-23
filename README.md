@@ -22,7 +22,75 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: WIP
+First, initialize Tinby::Client with your registered facebook email, your registered facebook password, your facebook url:
+
+```
+client = Tinby::Client.new(REGISTERED_FACEBOOK_EMAIL, REGISTERED_FACEBOOK_PASSWORD, FACEBOOK_URL)
+```
+
+If you want to get your profile ? like this:
+```
+client.profile
+```
+
+If you want to get recommended users ? like this:
+```
+client.recommended_users
+```
+and they return JSON:
+
+```
+[{
+          "group_matched" => false,
+            "distance_mi" => 0,
+           "content_hash" => "xxxxxxxxxxxxxxxxx",
+         "common_friends" => [],
+           "common_likes" => [],
+    "common_friend_count" => 0,
+      "common_like_count" => 0,
+       "connection_count" => 0,
+                    "_id" => "xxxxxxxxxxxxxxxxx",
+                    "bio" => "xxxxxxxxxxxxxxxxx",
+             "birth_date" => "xxxxxxxxxxxxxxxxx",
+                   "name" => "xxxxxxxxxxxxxxxxx",
+              "ping_time" => "2099-01-01T00:00:00.000Z",
+                 "photos" => [
+        [0] {
+                        "id" => "xxxxxxxxxxxxxxxxx",
+                       "url" => "https://xxxxxxxxxxxxxxxxx.jpg",
+            "processedFiles" => [
+                [0] {
+                       "url" => "https://xxxxxxxxxxxxxxxxx.jpg",
+                    "height" => 640,
+                     "width" => 640
+                },
+            ],
+                  "fileName" => "xxxxxxxxxxxxxxxxx.jpg",
+                 "extension" => "jpg"
+        }
+    ],
+                   "jobs" => [],
+                "schools" => [],
+                 "teaser" => {
+        "string" => ""
+    },
+                "teasers" => [],
+                 "gender" => 1,
+        "birth_date_info" => "",
+               "s_number" => 99999999999999999999999999
+}]
+```
+
+If you want to like someone ? like this:
+```
+client.like(user_id)
+```
+
+If you want to dislike someone ? like this:
+```
+client.dislike(user_id)
+```
+
 
 ## Development
 
