@@ -1,5 +1,6 @@
 require 'faraday'
 require 'faraday_middleware'
+require 'tinder_auth_fetcher'
 
 module Tinby
   class Client
@@ -7,13 +8,13 @@ module Tinby
     TINDER_API_URL = 'https://api.gotinder.com'.freeze
     CONNECTION_USER_AGENT = 'Tinder/7.5.3 (iPhone; iOS 10.3.2; Scale/2.00)'.freeze
 
-    attr_reader :connection, :email, :password, :profile_url
+    attr_reader :connection, :email, :password, :facebook
     attr_accessor :logined
 
-    def initialize(email, password, profile_url = '')
+    def initialize(email, password, profile_url)
       @email = email
       @password = password
-      @profile_url = profile_url
+      @facebook = Tinby::Facebook.new(profile_url)
       @logined = false
       build_tinder_connection
     end
@@ -84,11 +85,11 @@ module Tinby
     end
 
     def facebook_authentication_token
-      Tinby::Facebook.fetch_facebook_token(email, password)
+      TinderAuthFetcher.fetch_token(email, password)
     end
 
     def facebook_user_id
-      Tinby::Facebook.fetch_facebook_id(profile_url)
+      facebook.fetch_facebook_id
     end
   end
 end
