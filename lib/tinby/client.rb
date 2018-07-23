@@ -3,6 +3,7 @@ require 'faraday_middleware'
 
 module Tinby
   class Client
+    class Unauthorized < StandardError; end
     TINDER_API_URL = 'https://api.gotinder.com'.freeze
     CONNECTION_USER_AGENT = 'Tinder/7.5.3 (iPhone; iOS 10.3.2; Scale/2.00)'.freeze
 
@@ -19,14 +20,39 @@ module Tinby
 
     def profile
       sign_in unless login?
-      JSON.parse(connection.get('profile').body)
+      response = connection.get('profile').body
+      raise Unauthorized if response == 'Unauthorized'
+      JSON.parse(response, symbolize_names: true)
     end
 
     def recommended_users
       sign_in unless login?
-      results = JSON.parse(connection.post('user/recs').body)['results']
+      response = connection.post('user/recs').body
+      raise Unauthorized if response == 'Unauthorized'
+      results = JSON.parse(response)['results']
       users = results.reject { |r| r['name'] == 'Tinder Team' } if results
       users || []
+    end
+
+    def matches
+      sign_in unless login?
+      response = connection.post('updates', last_activity_date: '').body
+      response ? JSON.parse(response) : []
+    end
+
+    def like(user_id)
+      sign_in unless login?
+      connection.get("like/#{user_id}")
+    end
+
+    def dislike(user_id)
+      sign_in unless login?
+      connection.get("pass/#{user_id}")
+    end
+
+    def send_message(user_id, message)
+      sign_in unless login?
+      connection.post("user/matches/#{user_id}", message: message)
     end
 
     private
@@ -58,11 +84,11 @@ module Tinby
     end
 
     def facebook_authentication_token
-      Tinby::Facebook.get_facebook_token(email, password)
+      Tinby::Facebook.fetch_facebook_token(email, password)
     end
 
     def facebook_user_id
-      Tinby::Facebook.get_facebook_id(profile_url)
+      Tinby::Facebook.fetch_facebook_id(profile_url)
     end
   end
 end
