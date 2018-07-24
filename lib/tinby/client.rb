@@ -72,7 +72,7 @@ module Tinby
     end
 
     def auth_request
-      connection.post('/auth', facebook_token: facebook_authentication_token, facebook_id: facebook_user_id).body
+      connection.post('/auth', facebook_token: facebook_authentication_token).body
     end
 
     def build_tinder_connection
