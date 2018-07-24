@@ -91,6 +91,18 @@ If you want to dislike someone ? like this:
 client.dislike(user_id)
 ```
 
+## references
+
+find facebook id
+```
+https://findmyfbid.com
+```
+
+how to get tinder auth token
+```
+https://gist.github.com/taseppa/66fc7239c66ef285ecb28b400b556938
+```
+
 
 ## Development
 

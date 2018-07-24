@@ -29,6 +29,5 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'faraday', '~> 0'
   spec.add_dependency 'faraday_middleware', '~> 0'
   spec.add_dependency 'json', '~> 2.1'
-  spec.add_dependency 'selenium-webdriver', '~> 3.13'
   spec.add_dependency 'tinder_auth_fetcher', '~> 0'
 end

@@ -8,13 +8,12 @@ module Tinby
     TINDER_API_URL = 'https://api.gotinder.com'.freeze
     CONNECTION_USER_AGENT = 'Tinder/7.5.3 (iPhone; iOS 10.3.2; Scale/2.00)'.freeze
 
-    attr_reader :connection, :email, :password, :facebook
+    attr_reader :connection, :email, :password
     attr_accessor :logined
 
-    def initialize(email, password, profile_url)
+    def initialize(email, password)
       @email = email
       @password = password
-      @facebook = Tinby::Facebook.new(profile_url)
       @logined = false
       build_tinder_connection
     end
@@ -86,10 +85,6 @@ module Tinby
 
     def facebook_authentication_token
       TinderAuthFetcher.fetch_token(email, password)
-    end
-
-    def facebook_user_id
-      facebook.fetch_facebook_id
     end
   end
 end
