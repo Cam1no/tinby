@@ -25,7 +25,7 @@ Or install it yourself as:
 First, initialize Tinby::Client with your registered facebook email, your registered facebook password, your facebook url:
 
 ```
-client = Tinby::Client.new(REGISTERED_FACEBOOK_EMAIL, REGISTERED_FACEBOOK_PASSWORD, FACEBOOK_URL)
+client = Tinby::Client.new(REGISTERED_FACEBOOK_EMAIL, REGISTERED_FACEBOOK_PASSWORD)
 ```
 
 If you want to get your profile ? like this:
